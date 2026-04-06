@@ -1,0 +1,33 @@
+{
+  "tags": [
+    {
+      "title": "Cooking"
+    },
+    {
+      "title": "Dev"
+    },
+    {
+      "title": "Fitness"
+    },
+    {
+      "title": "Health"
+    },
+    {
+      "title": "Personal"
+    },
+    {
+      "title": "React"
+    },
+    {
+      "title": "Recipes"
+    },
+    {
+      "title": "Shopping"
+    },
+    {
+      "title": "Travels"
+    },{
+      "title": "TypeScript"
+    }
+  ]
+}
