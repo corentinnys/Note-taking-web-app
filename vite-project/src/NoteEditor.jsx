@@ -1,50 +1,62 @@
-import React, { useRef, useEffect } from "react";
-import EditorToolbar from "./EditorToolbar.jsx";
-import "./NoteEditor.css";
+import { useEditor, EditorContent } from "@tiptap/react";
+import { useEffect } from "react";
+import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
+import Underline from "@tiptap/extension-underline";
+import Image from "@tiptap/extension-image";
 
 export default function NoteEditor({ selectedNote, onSave }) {
-    const editorRef = useRef(null);
-    const contentRef = useRef("");
 
-    // 👉 Met à jour le contenu quand la note change
+    const editor = useEditor({
+        extensions: [
+            StarterKit,
+            Underline,
+            Image,
+            Placeholder.configure({
+                placeholder: "Commence à écrire...",
+            }),
+        ],
+        content: selectedNote?.content || "",
+    });
+
     useEffect(() => {
-        if (editorRef.current) {
-            const html = selectedNote?.content || "";
-            editorRef.current.innerHTML = html;
-            contentRef.current = html;
+        if (!editor) return;
+        editor.commands.setContent(selectedNote?.content || "", false);
+    }, [selectedNote, editor]);
+
+    if (!editor) return null;
+
+    const addImage = () => {
+        const url = prompt("URL de l'image");
+        if (url) {
+            editor.chain().focus().setImage({ src: url }).run();
         }
-    }, [selectedNote]);
-
-    if (!selectedNote) {
-        return <div>Sélectionne ou crée une note</div>;
-    }
-
-    const exec = (cmd, val = null) => {
-        editorRef.current.focus();
-        document.execCommand(cmd, false, val);
-        contentRef.current = editorRef.current.innerHTML;
     };
 
     return (
-        <div className="editor-container">
-            <EditorToolbar exec={exec} />
+        <div className="editor-container" style={{ background: "#0E121B" +
+                ""}}>
 
-            <div
-                ref={editorRef}
-                className="rich-editor"
-                contentEditable
-                suppressContentEditableWarning
-                onInput={(e) => {
-                    contentRef.current = e.currentTarget.innerHTML;
-                }}
-            />
+            {/* Toolbar minimaliste */}
+            <div className="toolbar">
+                <button onClick={() => editor.chain().focus().toggleBold().run()}>B</button>
+                <button onClick={() => editor.chain().focus().toggleItalic().run()}>I</button>
+                <button onClick={() => editor.chain().focus().toggleUnderline().run()}>U</button>
+                <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>H1</button>
+                <button onClick={() => editor.chain().focus().toggleBulletList().run()}>•</button>
+                <button onClick={addImage}>🖼</button>
+            </div>
 
-            <button onClick={() => onSave(contentRef.current)}>
-                Save
-            </button>
-            <button >
-                Annuler
-            </button>
+            {/* Editor */}
+            <EditorContent editor={editor} />
+
+            {/* Actions */}
+            <div className="actions">
+                <button onClick={() => onSave(editor.getHTML())}>
+                    Save
+                </button>
+            </div>
+
         </div>
     );
 }

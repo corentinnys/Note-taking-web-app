@@ -21,7 +21,8 @@
 }
 
 .rich-editor {
-    min-height: 300px;
+  /*  min-height: 300px;*/
+    min-height: 100vh;
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 6px;

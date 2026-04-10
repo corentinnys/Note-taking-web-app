@@ -1,4 +1,4 @@
-body{background-color:darkslategray;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background-color:#0E121B;margin:0;padding:0;font-family:Arial,sans-serif}
 ul{list-style:none;padding:0}
 li{margin:0;cursor:pointer}
 .note-content li {
@@ -7,7 +7,13 @@ li{margin:0;cursor:pointer}
     padding-bottom: 4px;
     list-style-type: disc; /* tiret classique */
 }
-
+.tag{
+    color: #7B7F88;
+}
+.tag:hover{
+    scale: 1.5;
+    transition: all 0.2s ease-in-out;
+}
 .editor-wrapper {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -41,4 +47,147 @@ li{margin:0;cursor:pointer}
     background-color: #4f46e5;
     color: white;
     cursor: pointer;
+}
+
+
+.my-hover:hover {
+    background-color: #232531;
+    cursor: pointer;
+    transform: scale(1.05); /* petit effet zoom */
+    transition: all 0.2s ease-in-out;
+    border-radius: 10px;
+    color: white;
+}
+
+.active-note {
+    background-color: #232531;
+    border-radius: 8px;
+    color: white !important;
+}
+
+.active-note .badge {
+    background-color: #232531 !important;
+
+}
+.note-item {
+    transition: all 0.3s ease;
+}
+
+/* effet actif */
+.note-item.active-note {
+    background-color: lightslategrey;
+
+}
+
+/* 🔥 animation quand sélection */
+.note-item.active-note {
+    animation: highlight 0.4s ease;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: lightgray;
+    }
+    100% {
+        background-color: lightslategrey;
+    }
+}
+
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #0E121B;
+    color: white;
+}
+
+.ProseMirror {
+    flex: 1;
+    padding: 20px;
+    outline: none;
+    overflow-y: auto;
+}
+
+/* Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+    content: "Commence à écrire...";
+    color: #64748b;
+    pointer-events: none;
+}
+
+
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #020617;
+    color: #e2e8f0;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.toolbar button {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+.toolbar button:hover {
+    background: #1e293b;
+    color: white;
+}
+
+/* Editor */
+.ProseMirror {
+    flex: 1;
+    padding: 20px;
+    outline: none;
+    overflow-y: auto;
+    line-height: 1.7;
+}
+
+/* Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+    content: "Commence à écrire...";
+    color: #475569;
+}
+
+/* Headings */
+.ProseMirror h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.ProseMirror h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+/* Paragraph */
+.ProseMirror p {
+    margin-bottom: 10px;
+}
+
+/* List */
+.ProseMirror ul {
+    padding-left: 20px;
+}
+
+/* Image */
+.ProseMirror img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 10px 0;
 }
